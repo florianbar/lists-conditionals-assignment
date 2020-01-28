@@ -1,6 +1,6 @@
 import React from 'react';
 
-const charComponent = props => {
+const char = props => {
     const style = {
         display: "inline-block", 
         padding: "16px", 
@@ -10,10 +10,11 @@ const charComponent = props => {
     };
 
     return (
-        <div style={style} onClick={props.deleteChar}>
+        <div style={style} 
+            onClick={props.deleteChar}>
             {props.character}
         </div>
     );
 }
 
-export default charComponent;
+export default char;

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-
-import ValidationComponent from './ValidationComponent/ValidationComponent';
-import CharComponent from './CharComponent/CharComponent';
+import Validation from './Validation/Validation';
+import Char from './Char/Char';
 
 class App extends Component {
   state = {
@@ -16,9 +15,9 @@ class App extends Component {
   };
 
   deleteCharFromText = index => {
-    let newText = this.state.text.split("");
-    newText.splice(index, 1);
-    newText = newText.join("");
+    const text = this.state.text.split("");
+    text.splice(index, 1);
+    const newText = text.join("");
    
     this.setState({
       text: newText
@@ -26,17 +25,12 @@ class App extends Component {
   };
 
   render() {
-    const charArr = this.state.text.split("");
-    const charComponents = (
-      <div>
-        {charArr.map((item, index) => {
-          return <CharComponent 
-            key={index}
-            character={item}
-            deleteChar={() => this.deleteCharFromText(index)} />
-        })}
-      </div>
-    );
+    const charList = this.state.text.split("").map((item, index) => {
+      return <Char 
+        key={index}
+        character={item}
+        deleteChar={() => this.deleteCharFromText(index)} />
+    });
 
     return (
       <div className="App">
@@ -50,10 +44,13 @@ class App extends Component {
         </ol>
         <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
 
-        <input type="text" onChange={event => this.changeTextHandler(event)} value={this.state.text} />
+        <input 
+          type="text" 
+          onChange={this.changeTextHandler} 
+          value={this.state.text} />
         <p>{this.state.text.length}</p>
-        <ValidationComponent textLength={this.state.text.length} />
-        { charComponents }
+        <Validation textLength={this.state.text.length} />
+        {charList}
       </div>
     );
   }
